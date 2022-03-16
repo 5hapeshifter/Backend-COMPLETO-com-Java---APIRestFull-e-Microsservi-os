@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.restfullapi.primeiroexemplo.model.Produto;
+import com.restfullapi.primeiroexemplo.model.exception.ResourceNotFoundException;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -63,7 +65,7 @@ public class ProdutoRepository {
     public Produto atualizar(Produto produto){
         Optional<Produto> produtoEncontrado = obterPorId(produto.getId());
         if(produtoEncontrado.isEmpty()) {
-            throw new InputMismatchException("Produto não encontrado");            
+            throw new ResourceNotFoundException("Produto não pode ser atualizado pois não existe");
         }
         deletar(produto.getId());
         produtos.add(produto);
